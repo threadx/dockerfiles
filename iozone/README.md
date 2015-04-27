@@ -2,16 +2,6 @@
 
 Dockerized IOzone app built on top of official Ubuntu images.
 
-## Image tags
-
-- threadx/iozone:14.04 (trusty)
-
-## Installed packages
-
-Base:
-
-- [trusty (14.04) minimal](http://packages.ubuntu.com/trusty/ubuntu-minimal)
-
 Image specific:
 
 - [iozone](http://www.iozone.org)
