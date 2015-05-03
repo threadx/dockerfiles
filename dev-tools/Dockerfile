@@ -26,4 +26,8 @@ RUN apt-get install -y traceroute
 RUN apt-get install -y unzip
 RUN apt-get install -y git
 
+# vi just doesn't cut it anymore
+
+RUN apt-get install -y vim
+
 cmd     /bin/bash
