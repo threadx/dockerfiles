@@ -25,6 +25,7 @@ RUN apt-get install -y whois
 RUN apt-get install -y traceroute
 RUN apt-get install -y unzip
 RUN apt-get install -y git
+RUN apt-get install -y curl
 
 # vi just doesn't cut it anymore
 

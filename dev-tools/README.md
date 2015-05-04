@@ -25,6 +25,8 @@ Dockerized Gnu Compiler Tools on top of the official Ubuntu image.
 * traceroute
 * unzip	
 * git
+* curl
+* vim
 
 ## Run Example (boot2docker)
 
