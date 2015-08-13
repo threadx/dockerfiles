@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 service ssh start
-
-bash 
+tail -f /var/log/dmesg
+#bash 
