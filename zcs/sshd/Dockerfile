@@ -8,6 +8,7 @@ RUN echo 'root:zadara' | chpasswd
 
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's/Port 22/Port 9222/' /etc/ssh/sshd_config
+RUN echo 'UseDNS no' >> /etc/ssh/sshd_config
 
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
