@@ -26,6 +26,7 @@ RUN apt-get install -y traceroute
 RUN apt-get install -y unzip
 RUN apt-get install -y git
 RUN apt-get install -y curl
+RUN apt-get install -y strace
 
 # vi just doesn't cut it anymore
 
