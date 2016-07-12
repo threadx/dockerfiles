@@ -2,7 +2,7 @@
 # Gnu Compiler Collection: g++ Development tools. Which will run on ZCS
 #
 
-FROM       ubuntu
+FROM       ubuntu:trusty
 
 MAINTAINER Howard Young "https://github.com/threadx"
 
