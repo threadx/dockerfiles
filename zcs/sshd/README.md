@@ -10,7 +10,7 @@ Issue ssh from a server connect to the frontend private network. (Sorry, public 
 ```
 
 $ sudo -i
-$ ssh -p 9222 <your-vpsa-ip-address>
+$ ssh -p 9222 root@<your-vpsa-ip-address>
 
 ```
 
