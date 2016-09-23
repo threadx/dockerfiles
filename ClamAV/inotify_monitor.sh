@@ -3,7 +3,7 @@
 watchdir=${SCAN_PATH}
 
 echo "Waiting for new files in ${watchdir}..."
-inotifywait ${watchdir} -m -r -q -e close_write --format %w%f . | while IFS= read -r file; do
+inotifywait ${watchdir} -m -r -q -e close_write --format %w%f | while IFS= read -r file; do
 
         echo "-------------------------------------------------------------"
         echo "Saw new file ${file} "
