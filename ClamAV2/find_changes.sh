@@ -59,10 +59,10 @@ for watch in ${SCANDIRS[@]}; do
 	# Check if watch is in the statistics csv
 	if grep --quiet "^${watch}," ${STATSFILE}; then
 		# Exists
-		echo "${watch}: Exists"
+		echo "$(date) ${watch}: Exists"
 	else
 		# Doesn't exist
-		echo "${watch}: New"
+		echo "$(date) ${watch}: New"
 		echo "${watch},,,," >> ${STATSFILE}
 	fi
 done
