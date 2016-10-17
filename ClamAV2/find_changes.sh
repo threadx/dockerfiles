@@ -42,14 +42,14 @@ performScan(){
 		newerthan=$(expr ${difference} \* 2)
 		newstart=$(date +%s)
 		# Update stats file with new laststart
-		sed -i "s#${scantarget},${laststart}#${scantarget},${newstart}#g" ${STATSFILE}
+		sed -i "s#^${scantarget},${laststart}#${scantarget},${newstart}#g" ${STATSFILE}
 		find ${scantarget} -type f -newermt "$(date --date=@${newerthan})" | split -l ${LINESPER} --additional-suffix='.log' - ${QUEUEDIR}/${newstart}_
 		newend=$(date +%s)
 		newtime=$(expr ${newend} - ${newstart})
 		newchange=$(cat ${QUEUEDIR}/${newstart}_* | wc -l )
 		# Update stats file with new lastend, new lastrun and new lastchange
-#		sed -i "s#${scantarget},.*#${scantarget},${newstart},${newend},${newtime},${newchange}#g" ${STATSFILE}
-		sed -i "s#${scantarget},${newstart},${lastend},${lastrun},${lastnew}#${scantarget},${newstart},${newend},${newtime},${newchange}#g" ${STATSFILE}
+#		sed -i "s#^${scantarget},.*#${scantarget},${newstart},${newend},${newtime},${newchange}#g" ${STATSFILE}
+		sed -i "s#^${scantarget},${newstart},${lastend},${lastrun},${lastnew}#${scantarget},${newstart},${newend},${newtime},${newchange}#g" ${STATSFILE}
 	fi
 }
 
@@ -88,7 +88,7 @@ for entry in ${ENTRIES[@]}; do
 			newtime=$(expr ${newend} - ${newstart})
 			newchange=$(cat ${QUEUEDIR}/${newstart}_* | wc -l )
 			# Update stats file with new lastend, new lastrun and new lastchange
-			sed -i "s#${scantarget},.*#${scantarget},${newstart},${newend},${newtime},${newchange}#g" ${STATSFILE}
+			sed -i "s#^${scantarget},.*#${scantarget},${newstart},${newend},${newtime},${newchange}#g" ${STATSFILE}
 		fi
 	fi
 	sleep 1s # Ensures that the date function should be different on each pass
