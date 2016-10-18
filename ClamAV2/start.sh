@@ -7,6 +7,12 @@ if [[ -x "./ssh_server.sh" && "${ENABLE_SSH}" != "" ]]; then
 fi
 
 if [[ -x "./clamav_daemon.sh" && ("${MODE}" == "" || "${MODE}" == "av") ]]; then
+	ARBITRARY_OFFSET=$(( $(date +%s%N) % 60 ))
+	if [[ "${DEF_UPD_FREQ}" == "" ]]; then
+		DEF_UPD_FREQ=24
+	fi
+	HOUR_OFF=$(expr 24 / ${DEF_UPD_FREQ})
+	REFERENCE="${ARBITRARY_OFFSET} */${HOUR_OFF} * * * root /etc/init.d/clamav-freshclam no-daemon 2>&1" # ARBITRARY MINUTE every HOUR
         ./clamav_daemon.sh &
 fi
 

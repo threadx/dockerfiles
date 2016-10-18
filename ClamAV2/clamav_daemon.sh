@@ -19,4 +19,4 @@ if [[ "${LOG_PATH}" != "" ]]; then
 fi
 
 service clamav-daemon start
-service clamav-freshclam start
+#service clamav-freshclam start
