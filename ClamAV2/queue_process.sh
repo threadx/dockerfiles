@@ -38,7 +38,7 @@ avFile(){
 #TODO: Check for old inprogress files, rename to reprocess
 
 # Find some work files in ${QUEUEDIR}
-PENDINGFILES=( $(find ${QUEUEDIR}/ -mindepth 1 -maxdepth 1 -type f -mmin +2 -iname '*.log' | head -n 20) )
+PENDINGFILES=( $(find ${QUEUEDIR}/ -mindepth 1 -maxdepth 1 -type f -mmin +2 -iname '*.log' | sort -n | head -n 20) )
 # Process each line in files from ${QUEUEDIR}
 while [[ ${#PENDINGFILES[@]} -gt 0 ]]; do
 	for filepath in ${PENDINGFILES[@]}; do
@@ -51,7 +51,7 @@ while [[ ${#PENDINGFILES[@]} -gt 0 ]]; do
 #		mv "${filepath}.${HOSTID}" "${filepath}.completed"
 		rm "${filepath}.${HOSTID}"
 	done
-	PENDINGFILES=( $(find ${QUEUEDIR}/ -mindepth 1 -maxdepth 1 -type f -mmin +2 -iname '*.log' | head -n 20) )
+	PENDINGFILES=( $(find ${QUEUEDIR}/ -mindepth 1 -maxdepth 1 -type f -mmin +2 -iname '*.log' | sort -n | head -n 20) )
 done
 
 rm ${LOG_PATH}/pid/${HOSTID}-scan.active
