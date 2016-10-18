@@ -39,8 +39,9 @@ performScan(){
 	nextpossiblescan=$(expr ${lastend} + ${SINCELASTSCAN})
 	if [[ $(date +%s) -ge ${nextpossiblescan} || ${lastrun} -lt ${SKIPDELAY} ]]; then # stall the scan for an hour if it completed recently, unless it usually takes less than X time to run(1/6th of the delay)
 		difference=$(expr $(date +%s) - ${laststart})
-		newerthan=$(expr ${difference} \* 2)
 		newstart=$(date +%s)
+		newerthan=$(expr ${difference} \* 2)
+		newerthan=$(expr ${newstart} - ${newerthan})
 		# Update stats file with new laststart
 		sed -i "s#^${scantarget},${laststart}#${scantarget},${newstart}#g" ${STATSFILE}
 		find ${scantarget} -type f -newermt "$(date --date=@${newerthan})" | split -l ${LINESPER} --additional-suffix='.log' - ${QUEUEDIR}/${newstart}_
