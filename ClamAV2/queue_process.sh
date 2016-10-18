@@ -42,7 +42,7 @@ PENDINGFILES=( $(find ${QUEUEDIR}/ -mindepth 1 -maxdepth 1 -type f -mmin +2 -ina
 # Process each line in files from ${QUEUEDIR}
 while [[ ${#PENDINGFILES[@]} -gt 0 ]]; do
 	for filepath in ${PENDINGFILES[@]}; do
-		echo ${filepath}
+		echo "$(date) ${filepath}"
 		mv "${filepath}" "${filepath}.${HOSTID}"
 		TODO=( $(cat "${filepath}.${HOSTID}" ) )
 		for line in ${TODO[@]}; do
