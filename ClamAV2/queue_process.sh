@@ -14,10 +14,12 @@ fi
 
 # Confirm this script is not already running, if so, exit
 if [[ -e "${LOG_PATH}/pid/${HOSTID}-scan.active" ]]; then
-        exit 0
-else
-        echo $$ > ${LOG_PATH}/pid/${HOSTID}-scan.active
+	if kill -0 $(cat ${LOG_PATH}/pid/${HOSTID}-scan.active); then
+	        exit 0
+	fi
 fi
+
+echo $$ > ${LOG_PATH}/pid/${HOSTID}-scan.active
 
 ## Functions
 avFile(){
