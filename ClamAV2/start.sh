@@ -2,6 +2,8 @@
 printenv | sed -e 's/^\(.*\)$/export \1"/g' -e 's/=/="/' > /env.sh
 chmod +x /env.sh
 
+echo -n "" > /etc/cron.d/scan_cron
+
 if [[ -x "./ssh_server.sh" && "${ENABLE_SSH}" != "" ]]; then
 	./ssh_server.sh &
 fi
