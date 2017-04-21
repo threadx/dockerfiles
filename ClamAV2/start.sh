@@ -19,15 +19,21 @@ if [[ -x "./clamav_daemon.sh" && ("${MODE}" == "" || "${MODE}" == "av") ]]; then
 fi
 
 if [[ -x "./queue_process.sh" && ("${MODE}" == "" || "${MODE}" == "av") ]]; then
-	ARBITRARY_OFFSET=$(( $(date +%s%N) % 60 ))
-	REFERENCE="${ARBITRARY_OFFSET} * * * * root . /env.sh; bash /queue_process.sh >> ${LOG_PATH}/queue_process.log 2>&1" # ARBITRARY MINUTE every HOUR
+	if [[ "${AV_CRON}" == "" ]]; then
+		ARBITRARY_OFFSET=$(( $(date +%s%N) % 60 ))
+		AV_CRON="${ARBITRARY_OFFSET} * * * *"
+	fi
+	REFERENCE="${AV_CRON} root . /env.sh; bash /queue_process.sh >> ${LOG_PATH}/queue_process.log 2>&1" # ARBITRARY MINUTE every HOUR
 	echo "${REFERENCE}"
 	echo "${REFERENCE}" >> /etc/cron.d/scan_cron
 fi
 
 if [[ -x "./find_changes.sh" && ("${MODE}" == "" || "${MODE}" == "find") ]]; then
-	ARBITRARY_OFFSET=$(( $(date +%s%N) % 60 ))
-	REFERENCE="${ARBITRARY_OFFSET} * * * * root . /env.sh; bash /find_changes.sh >> ${LOG_PATH}/finddata.log 2>&1" # ARBITRARY MINUTE every HOUR
+	if [[ "${FIND_CRON}" == "" ]]; then
+		ARBITRARY_OFFSET=$(( $(date +%s%N) % 60 ))
+		FIND_CRON="${ARBITRARY_OFFSET} * * * *"
+	fi
+	REFERENCE="${FIND_CRON} root . /env.sh; bash /find_changes.sh >> ${LOG_PATH}/finddata.log 2>&1" # ARBITRARY MINUTE every HOUR
 	echo "${REFERENCE}"
 	echo "${REFERENCE}" >> /etc/cron.d/scan_cron
 fi

@@ -9,3 +9,6 @@ PROXY_PORT
 DEF_UPD_FREQ
 ENABLE_SSH=anything
 MODE=[av,find] (Default is both)
+
+FIND_CRON="* * * * *"
+AV_CRON="* * * * *"
