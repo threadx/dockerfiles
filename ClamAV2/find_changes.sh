@@ -2,6 +2,7 @@
 SCANDIRS=( ${SCAN_PATH} )
 STATSFILE="${LOG_PATH}/clamdata.csv"
 QUEUEDIR="${LOG_PATH}/queue"
+LOCKDIR="/dev/shm"
 CURRENTTIME=$(date +%s)
 IFS=$'\n'
 
@@ -16,16 +17,11 @@ if [[ -d "${LOG_PATH}" && ! -d "${QUEUEDIR}" ]]; then
 	mkdir ${QUEUEDIR}
 fi
 
-# Ensure the PID directory exists
-if [[ -d "${LOG_PATH}" && ! -d "${LOG_PATH}/pid" ]]; then
-	mkdir ${LOG_PATH}/pid
-fi
-
 # Confirm this script is not already running, if so, exit
-if [[ -e "${LOG_PATH}/pid/${HOSTID}-find.active" ]]; then
+if [[ -e "${LOCKDIR}/${HOSTID}-find.active" ]]; then
 	exit 0
 else
-	echo $$ > ${LOG_PATH}/pid/${HOSTID}-find.active
+	echo $$ > ${LOCKDIR}/${HOSTID}-find.active
 fi
 
 
@@ -96,4 +92,4 @@ for entry in ${ENTRIES[@]}; do
 done
 
 # Clean up the PID file so this can run again on next execution
-rm ${LOG_PATH}/pid/${HOSTID}-find.active
+rm ${LOCKDIR}/${HOSTID}-find.active

@@ -3,23 +3,19 @@ SCANDIRS=( ${SCAN_PATH} )
 STATSFILE="${LOG_PATH}/clamdata.csv"
 QUEUEDIR="${LOG_PATH}/queue"
 LOGDIR="${LOG_PATH}/scans"
+LOCKDIR="/dev/shm"
 IFS=$'\n'
 
 HOSTID=$(hostname)
 
-# Ensure the PID directory exists
-if [[ -d "${LOG_PATH}" && ! -d "${LOG_PATH}/pid" ]]; then
-        mkdir ${LOG_PATH}/pid
-fi
-
 # Confirm this script is not already running, if so, exit
-if [[ -e "${LOG_PATH}/pid/${HOSTID}-scan.active" ]]; then
-	if kill -0 $(cat ${LOG_PATH}/pid/${HOSTID}-scan.active); then
+if [[ -e "${LOCKDIR}/${HOSTID}-scan.active" ]]; then
+	if kill -0 $(cat ${LOCKDIR}/${HOSTID}-scan.active); then
 	        exit 0
 	fi
 fi
 
-echo $$ > ${LOG_PATH}/pid/${HOSTID}-scan.active
+echo $$ > ${LOCKDIR}/${HOSTID}-scan.active
 
 ## Functions
 avFile(){
@@ -56,4 +52,4 @@ while [[ ${#PENDINGFILES[@]} -gt 0 ]]; do
 	PENDINGFILES=( $(find ${QUEUEDIR}/ -mindepth 1 -maxdepth 1 -type f -mmin +2 -iname '*.log' | sort -n | head -n 20) )
 done
 
-rm ${LOG_PATH}/pid/${HOSTID}-scan.active
+rm ${LOCKDIR}/${HOSTID}-scan.active
