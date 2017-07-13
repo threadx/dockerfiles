@@ -8,6 +8,8 @@ MAINTAINER Howard Young "https://github.com/threadx"
 
 RUN apk update
 
+# From https://github.com/camilb/docker-gsutil
+
 RUN apk add  \
     python \
     py-pip \
@@ -24,4 +26,3 @@ RUN apk add  \
   && pip install gsutil \
   && apk del build-deps \
   && rm -rf /var/cache/apk/*
-
