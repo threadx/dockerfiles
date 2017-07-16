@@ -1,36 +1,25 @@
-# GNU g++ Development Tools     
+# GCP gusutil     
 
-Dockerized Gnu Compiler Tools on top of the official Ubuntu image.
+Dockerized Google Cloud Platform gsutil built on Alpine Zadara SSHD
 
-## Installed Compiler Tools
+## Installed Tools
 
-* g++
-* make
-* xutils-dev
-* libtool
-* automake
+* gsutil
+* sshd
 
-### Libraries
-
-* libzip-dev
-* libcurl4-openssl-dev
-* libxml2-dev
-
-### Other
-
-* python
-* wget
-* pandoc
-* whois
-* traceroute
-* unzip	
-* git
-* curl
-* vim
-
-## Run Example (boot2docker)
+## SSH Access
 
 ```
-$ sudo docker run -it -v /c/Users:/home threadx/dev-tools
+root@<docker-image-ip>
 ```
 
+Password is zadara. Change upon first login.
+
+## .boto
+
+Map your .boto file to /root or run
+
+```
+gsutil config
+```
+Follow instructions and steps layed out in the config script output.
