@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-/usr/sbin/sshd -D
-
-exec "$@"
-
+service ssh start
+tail -f /var/log/dmesg
+#bash 
